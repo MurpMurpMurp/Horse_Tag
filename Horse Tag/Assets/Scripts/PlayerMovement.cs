@@ -1,0 +1,78 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerMovement : MonoBehaviour
+{
+    [Header("Character Movement Variables")]
+    [SerializeField] private float m_moveSpeed = 12f;
+    [SerializeField] private float m_gravity = -9.81f;
+    [SerializeField] private float m_jumpHeight = 3f;
+
+    [Header("Movement X and Y")]
+    [SerializeField] private float m_x;
+    [SerializeField] private float m_z;
+    [SerializeField] private Vector3 m_movementVector;
+
+    [Header("character controller reference")]
+    [SerializeField] private CharacterController m_charController;
+
+    [Header("Ground Check Reference")]
+    [SerializeField] private Transform m_groundCheck;
+
+    [Header("Ground Check Variables")]
+    [SerializeField] private float m_groundDistance = 0.4f;
+    [SerializeField] private LayerMask m_groundMask;
+    [SerializeField] private bool m_isGrounded;
+
+    private Vector3 m_velocity;
+
+    private void Update()
+    {
+        GetInputs();
+        CheckIfThePlayerIsGrounded();
+    }
+
+    private void FixedUpdate()
+    {
+        MoveCharacter();
+        Jump();
+        ApplyGravity();
+    }
+    private void GetInputs()
+    {
+        m_x = Input.GetAxis("Horizontal");
+        m_z = Input.GetAxis("Vertical");
+
+        m_movementVector = transform.right * m_x + transform.forward * m_z;
+    }
+
+    private void MoveCharacter()
+    {
+        m_charController.Move(m_movementVector * m_moveSpeed * Time.deltaTime);
+    }
+
+    private void ApplyGravity()
+    {
+        m_velocity.y += m_gravity * Time.deltaTime;
+        m_charController.Move(m_velocity * Time.deltaTime);
+    }
+
+    private void Jump()
+    {
+        if (Input.GetButton("Jump") && m_isGrounded)
+        {
+            m_velocity.y = Mathf.Sqrt(m_jumpHeight * -2f * m_gravity);
+        }
+
+        if (m_isGrounded && m_velocity.y <0)
+        {
+            m_velocity.y = -2f;
+        }
+    }
+
+    private void CheckIfThePlayerIsGrounded()
+    {
+        m_isGrounded = Physics.CheckSphere(m_groundCheck.position, m_groundDistance, m_groundMask);
+    }
+}
