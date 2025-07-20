@@ -16,6 +16,7 @@ public class MouseLook : MonoBehaviour
 
     private float m_xRotation = 0f;
 
+    [HideInInspector] public bool m_hasGameEnded = false;
 
     private void Start()
     {
@@ -24,9 +25,11 @@ public class MouseLook : MonoBehaviour
     }
     private void Update()
     {
-        UpdateMouseDirection();
-
-        RotateBody();
+        if (!m_hasGameEnded)
+        {
+            UpdateMouseDirection();
+            RotateBody();
+        }
     }
 
     private void UpdateMouseDirection()

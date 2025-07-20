@@ -25,19 +25,27 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask m_groundMask;
     [SerializeField] private bool m_isGrounded;
 
+    [HideInInspector] public bool m_hasGameEnded = false;
+
     private Vector3 m_velocity;
 
     private void Update()
     {
-        GetInputs();
-        CheckIfThePlayerIsGrounded();
+        if (!m_hasGameEnded)
+        {
+            GetInputs();
+            CheckIfThePlayerIsGrounded();
+        }
     }
 
     private void FixedUpdate()
     {
-        MoveCharacter();
-        Jump();
-        ApplyGravity();
+        if (!m_hasGameEnded)
+        {
+            MoveCharacter();
+            Jump();
+            ApplyGravity();
+        }
     }
     private void GetInputs()
     {
