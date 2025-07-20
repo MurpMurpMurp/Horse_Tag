@@ -10,3 +10,6 @@ https://www.rawpixel.com/image/6118416/big-giant-tree-free-public-domain-cc0-pho
 https://www.rawpixel.com/image/6118272/big-tree-png-nature-sticker
 https://freestocktextures.com/texture/gravel-stone-rock,139.html
 https://www.pexels.com/photo/brown-wooden-surface-129733/
+https://www.reddit.com/r/LiminalSpace/comments/1cpryts/this_gives_me_big_windows_xp_vibes/
+https://www.textures4photoshop.com/tex/clouds-and-sky/fluffy-clouds-free-sky-texture.aspx
+https://www.dreamstime.com/stock-photo-purebred-young-horse-jumping-nature-image75049020
