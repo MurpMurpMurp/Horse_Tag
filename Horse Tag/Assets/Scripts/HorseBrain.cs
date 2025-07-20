@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class HorseBrain : MonoBehaviour
 {
     [Header("Horse Related Reference")]
-    [SerializeField] private NavMeshAgent m_horseAgent;
+    [SerializeField] public NavMeshAgent m_horseAgent;
     [SerializeField] private SpriteRenderer m_horseSpriteRenderer;
 
     [Header("Nav Agent Variables")]
@@ -18,7 +18,7 @@ public class HorseBrain : MonoBehaviour
     [SerializeField] private float m_timeToReach;
 
     [Header("Player Transform Reference")]
-    [SerializeField] private Transform m_playerLocation;
+    [SerializeField] public Transform m_playerLocation;
 
     [Header("Slowly Increase Horse Speed Stuff")]
     [SerializeField] private float m_changeSpeed;
@@ -30,7 +30,7 @@ public class HorseBrain : MonoBehaviour
     private float m_defaultHorseSpeed;
     private float m_timeForChange;
 
-    [HideInInspector] public bool m_hasGameEnded = false;
+    [HideInInspector] public bool m_startGame = false;
 
     private void Start()
     {
@@ -39,18 +39,12 @@ public class HorseBrain : MonoBehaviour
     }
     private void Update()
     {
-        if (!m_hasGameEnded)
+        if (m_startGame)
         {
             FlipHorseSpriteSoThatHeLooksLikeHesRunning();
             IncreaseHorseSpeedOverTimer();
 
             MakeHorseChasePlayer();
-            m_horseAgent.isStopped = false;
-        }
-        else
-        {
-            m_horseAgent.isStopped = true;
-            m_horseAgent.acceleration = 999999999;
         }
     }
 

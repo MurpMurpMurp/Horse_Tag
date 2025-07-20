@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float m_moveSpeed = 12f;
     [SerializeField] private float m_gravity = -9.81f;
     [SerializeField] private float m_jumpHeight = 3f;
+    [SerializeField] private float m_runningSpeed;
 
     [Header("Movement X and Y")]
     [SerializeField] private float m_x;
@@ -25,7 +26,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask m_groundMask;
     [SerializeField] private bool m_isGrounded;
 
-    [HideInInspector] public bool m_hasGameEnded = false;
+    [HideInInspector] public bool m_hasGameEnded = true;
+    [HideInInspector] private bool m_isRunning;
 
     private Vector3 m_velocity;
 
@@ -40,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!m_hasGameEnded)
+        if (m_hasGameEnded == false)
         {
             MoveCharacter();
             Jump();
@@ -57,7 +59,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveCharacter()
     {
-        m_charController.Move(m_movementVector * m_moveSpeed * Time.deltaTime);
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            m_charController.Move(m_movementVector * (m_moveSpeed + m_runningSpeed) * Time.deltaTime);
+        }
+        else
+        {
+            m_charController.Move(m_movementVector * m_moveSpeed * Time.deltaTime);
+        }
+        
     }
 
     private void ApplyGravity()

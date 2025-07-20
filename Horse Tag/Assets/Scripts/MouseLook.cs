@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MouseLook : MonoBehaviour
 {
@@ -10,22 +11,18 @@ public class MouseLook : MonoBehaviour
 
     [Header("Mouse Variables")]
     [SerializeField] private float m_sensitivity = 100f;
+    [SerializeField] private Slider m_sensitivitySlider;
 
     [Header("Player Body Reference")]
     [SerializeField] private Transform m_playerBodyTransform;
 
     private float m_xRotation = 0f;
 
-    [HideInInspector] public bool m_hasGameEnded = false;
+    public bool m_hasGameEnded = true;
 
-    private void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
     private void Update()
     {
-        if (!m_hasGameEnded)
+        if (m_hasGameEnded == false)
         {
             UpdateMouseDirection();
             RotateBody();
@@ -46,5 +43,10 @@ public class MouseLook : MonoBehaviour
         m_playerBodyTransform.Rotate(Vector3.up * m_mouseX);
 
         transform.localRotation = Quaternion.Euler(m_xRotation, 0f, 0f);
+    }
+
+    public void SetSensitivity()
+    {
+        m_sensitivity = m_sensitivitySlider.value;
     }
 }
