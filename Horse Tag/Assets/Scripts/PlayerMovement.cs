@@ -26,10 +26,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask m_groundMask;
     [SerializeField] private bool m_isGrounded;
 
+    [Header("Walking Sound Effects")]
+    [SerializeField] private AudioClip[] m_walkingSounds;
+    [SerializeField] private AudioSource m_walkingAudioSource;
+    [SerializeField] private float m_timeBetweenWalkingSounds;
+
     [HideInInspector] public bool m_hasGameEnded = true;
     [HideInInspector] private bool m_isRunning;
 
     private Vector3 m_velocity;
+    private float m_timer;
 
     private void Update()
     {
@@ -37,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
         {
             GetInputs();
             CheckIfThePlayerIsGrounded();
+            PlaySoundsWhenPlayerIsGrounded();
         }
     }
 
@@ -92,5 +99,18 @@ public class PlayerMovement : MonoBehaviour
     private void CheckIfThePlayerIsGrounded()
     {
         m_isGrounded = Physics.CheckSphere(m_groundCheck.position, m_groundDistance, m_groundMask);
+    }
+
+    private void PlaySoundsWhenPlayerIsGrounded()
+    {
+        if (m_isGrounded)
+        {
+            m_timer += Time.deltaTime;
+            if (m_timer >= m_timeBetweenWalkingSounds)
+            {
+                m_walkingAudioSource.PlayOneShot(m_walkingSounds[Random.Range(0, m_walkingSounds.Length)]);
+                m_timer = 0;
+            }
+        }
     }
 }
