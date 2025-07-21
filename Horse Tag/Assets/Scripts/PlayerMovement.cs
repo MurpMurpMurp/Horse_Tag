@@ -27,12 +27,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool m_isGrounded;
 
     [Header("Walking Sound Effects")]
-    [SerializeField] private AudioClip[] m_walkingSounds;
+    [SerializeField] private AudioClip m_walkingSound;
     [SerializeField] private AudioSource m_walkingAudioSource;
     [SerializeField] private float m_timeBetweenWalkingSounds;
 
     [HideInInspector] public bool m_hasGameEnded = true;
     [HideInInspector] private bool m_isRunning;
+    [HideInInspector] private bool m_isMoving;
 
     private Vector3 m_velocity;
     private float m_timer;
@@ -105,12 +106,25 @@ public class PlayerMovement : MonoBehaviour
     {
         if (m_isGrounded)
         {
+            CheckForInputs();
             m_timer += Time.deltaTime;
-            if (m_timer >= m_timeBetweenWalkingSounds)
+            if (m_timer >= m_timeBetweenWalkingSounds && m_isMoving)
             {
-                m_walkingAudioSource.PlayOneShot(m_walkingSounds[Random.Range(0, m_walkingSounds.Length)]);
+                m_walkingAudioSource.PlayOneShot(m_walkingSound);
                 m_timer = 0;
             }
+        }
+    }
+
+    private void CheckForInputs()
+    {
+        if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
+        {
+            m_isMoving = true;
+        }
+        else
+        {
+            m_isMoving = false;
         }
     }
 }

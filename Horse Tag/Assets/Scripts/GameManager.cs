@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource m_endAudioSource;
     [SerializeField] private bool m_endGame = false;
 
+    [Header("Music AudioSource Reference")]
+    [SerializeField] private AudioSource m_mainMusic;
+
     [Header("Script References")]
     [SerializeField] private HorseBrain m_horseBrain;
     [SerializeField] private PlayerMovement m_playerMovement;
@@ -98,6 +101,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()
     {
+        m_mainMusic.Stop();
         SceneManager.LoadScene(m_scene.name, LoadSceneMode.Single);
     }
 

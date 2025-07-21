@@ -76,7 +76,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: efacb8aaf38452b4b9afd258adda3815, type: 3}
   - {fileID: 8300000, guid: 97eb09960c03f6c419425533e88fa30c, type: 3}
   m_horseAudioSource: {fileID: 5240596001598000558}
-  m_hasGameEnded: 0
+  m_startGame: 0
 --- !u!212 &7926221569068212783
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 7842005318616479599}
   m_Layer: 6
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: tag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 9202155038095859271}
   m_Layer: 0
   m_Name: where to look at
-  m_TagString: Untagged
+  m_TagString: tag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
